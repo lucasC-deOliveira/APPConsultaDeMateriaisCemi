@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.controledematerial.R;
 import com.example.controledematerial.model.Usuario;
@@ -44,24 +45,31 @@ public class CadastroFragment extends Fragment {
                 String usuario = textUsuario.getText().toString().trim();
                 String senha = textSenha.getText().toString().trim();
 
-                Usuario usuarioObj = new Usuario();
-                usuarioObj.setNome(nome);
-                usuarioObj.setCPF(cpf);
-                usuarioObj.setUsuario(usuario);
-                usuarioObj.setSenha(senha);
+                if(nome.equals("")||cpf.equals("")||senha.equals("")||usuario.equals("")){
+                    Toast.makeText(getActivity(),"Preecha todos os campos", Toast.LENGTH_SHORT).show();
+                }
+                else {
 
-                Bundle cadastroBundle = new Bundle();
-                cadastroBundle.putSerializable("cadastro",usuarioObj);
-               // getParentFragmentManager().setFragmentResult("usuario", cadastroBundle);
+                    Usuario usuarioObj = new Usuario();
+                    usuarioObj.setNome(nome);
+                    usuarioObj.setCPF(cpf);
+                    usuarioObj.setUsuario(usuario);
+                    usuarioObj.setSenha(senha);
 
-                cadastroFragment2 = new CadastroFragment2();
-                cadastroFragment2.setArguments(cadastroBundle);
 
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.framelayout, cadastroFragment2)
-                        .setReorderingAllowed(true)
-                        .addToBackStack("")
-                        .commit();
+                    Bundle cadastroBundle = new Bundle();
+                    cadastroBundle.putSerializable("cadastro", usuarioObj);
+                    // getParentFragmentManager().setFragmentResult("usuario", cadastroBundle);
+
+                    cadastroFragment2 = new CadastroFragment2();
+                    cadastroFragment2.setArguments(cadastroBundle);
+
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.framelayout, cadastroFragment2)
+                            .setReorderingAllowed(true)
+                            .addToBackStack("")
+                            .commit();
+                }
 
 
 

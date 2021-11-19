@@ -74,44 +74,48 @@ public class CadastroFragment2 extends Fragment {
                 String email = textEmail.getText().toString().trim();
                 String UID = java.util.UUID.randomUUID().toString();
 
-                usuarioObj.setUID(UID);
-                usuarioObj.setNumeroCartao(numeroCa);
-                usuarioObj.setEndereco(endereco);
-                usuarioObj.setEmail(email);
-                Log.i("Resultado", usuarioObj.toString());
+                if(numeroCa.equals("")|| endereco.equals("")|| email.equals("")){
+                    Toast.makeText(getActivity(),"Preecha todos os campos", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    usuarioObj.setUID(UID);
+                    usuarioObj.setNumeroCartao(numeroCa);
+                    usuarioObj.setEndereco(endereco);
+                    usuarioObj.setEmail(email);
+                    Log.i("Resultado", usuarioObj.toString());
 
 
-                MainActivity.getUsuario().createUserWithEmailAndPassword(usuarioObj.getEmail(),usuarioObj.getSenha()).addOnCompleteListener((Activity) container.getContext(), new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
+                    MainActivity.getUsuario().createUserWithEmailAndPassword(usuarioObj.getEmail(), usuarioObj.getSenha()).addOnCompleteListener((Activity) container.getContext(), new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
 
-                            MainActivity.getMyRef().child("Usuario").child(usuarioObj.getUID()).setValue(usuarioObj);
-                            
-                            MainActivity.getUsuario().getCurrentUser().sendEmailVerification()
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                Log.d("result", "Email sent.");
+                                MainActivity.getMyRef().child("Usuario").child(usuarioObj.getUID()).setValue(usuarioObj);
+
+                                MainActivity.getUsuario().getCurrentUser().sendEmailVerification()
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Log.d("result", "Email sent.");
+                                                }
                                             }
-                                        }
-                                    });
-                            Toast.makeText(getActivity(),"Cadastro Realizado",Toast.LENGTH_LONG).show();
-                            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                            loginFragment = new LoginFragment();
-                            transaction.replace(R.id.framelayout, loginFragment).
-                                    setReorderingAllowed(true)
-                                    .addToBackStack("")
-                                    .commit();
-                        }
+                                        });
+                                Toast.makeText(getActivity(), "Cadastro Realizado", Toast.LENGTH_LONG).show();
+                                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                                loginFragment = new LoginFragment();
+                                transaction.replace(R.id.framelayout, loginFragment).
+                                        setReorderingAllowed(true)
+                                        .addToBackStack("")
+                                        .commit();
+                            } else {
+                                Toast.makeText(getActivity(), "Cadastro Não Realizado Verifique se os campos são validos", Toast.LENGTH_LONG).show();
+                            }
 
-                        else{
-                            Toast.makeText(getActivity(),"Cadastro Não Realizado",Toast.LENGTH_LONG).show();
                         }
+                    });
 
-                    }
-                });
+                }
 
 
             }
