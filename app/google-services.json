@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "610416562039",
+    "project_id": "controledematerial-519e1",
+    "storage_bucket": "controledematerial-519e1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610416562039:android:457f0b1d31a84bb9601b72",
+        "android_client_info": {
+          "package_name": "com.example.controledematerial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610416562039-fn8h1q9l3o1ke48hn1iv40p2c4apcmek.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQUo19v_-H_rvWGRK6e6sEyQFGaxk9cUA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610416562039-fn8h1q9l3o1ke48hn1iv40p2c4apcmek.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
